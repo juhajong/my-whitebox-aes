@@ -42,16 +42,18 @@ int main(int argc, char *argv[])
     keySchedule(roundKey);
 
     // encrypt
-    addRoundKey(state, roundKey[0]);
-    for ( int i=0; i<9; i++ )
+    for ( int i=1; i<=9; i++ )
     {
-        subBytes(state);
         shiftRows(state);
+        shiftRows(roundKey[i-1]);
+        addRoundKey(state, roundKey[i-1]);
+        subBytes(state);
         mixColumns(state);
-        addRoundKey(state, roundKey[i+1]);
     }
-    subBytes(state);
     shiftRows(state);
+    shiftRows(roundKey[9]);
+    addRoundKey(state, roundKey[9]);
+    subBytes(state);
     addRoundKey(state, roundKey[10]);
 
  
