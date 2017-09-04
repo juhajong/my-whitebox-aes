@@ -1,17 +1,28 @@
-void shiftRows(char state[4][4])
+void shiftRows(char state[0x10])
 {
-    unsigned int row = 0;
-    unsigned int hi  = 0;
-    unsigned int lo  = 0;
+    char tmp = 0;
 
-    for (int i=1; i<4; i++)
-    {
-        row = ((unsigned int *)state)[i];
+    // second row
+    tmp        = state[0x1];
+    state[0x1] = state[0x5];
+    state[0x5] = state[0x9];
+    state[0x9] = state[0xd];
+    state[0xd] = tmp;
 
-        hi = row >> (8 * i);
-        lo = row << (8 * (4 - i));
+    // third row
+    tmp        = state[0x2];
+    state[0x2] = state[0xa];
+    state[0xa] = tmp;
+    tmp        = state[0x6];
+    state[0x6] = state[0xe];
+    state[0xe] = tmp;
+    
+    // fourth row
+    tmp = state[0xf];
+    state[0xf] = state[0xb];
+    state[0xb] = state[0x7];
+    state[0x7] = state[0x3];
+    state[0x3] = tmp;
 
-        ((unsigned int *)state)[i] = hi + lo;
-    }
-
+    return;
 }
