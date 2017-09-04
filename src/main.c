@@ -55,5 +55,10 @@ int main(int argc, char *argv[])
     printf("\ncipher text:\n");
     printBlock(state);
 
+
+    for (int i=0; i<0x10; i++)
+    {
+        printf("0x%02x, ", state[i] & 0xff);
+    }
     return 0;
 }
